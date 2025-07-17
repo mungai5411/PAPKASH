@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - PAPKASH</title>
+    <meta name="description" content="Join PAPKASH today and start earning money online. Register for just Ksh 400 via M-Pesa.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">PAPKASH</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/support">Support</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="register-container">
+                <div class="register-header">
+                    <h1>Join PAPKASH Today</h1>
+                    <p>Start earning money by completing simple tasks</p>
+                </div>
+
+                <!-- Step 1: Registration Form -->
+                <div class="registration-step" id="step1">
+                    <div class="form-container">
+                        <h2>Create Your Account</h2>
+                        <form id="registerForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" id="name" name="name" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="254712345678" required>
+                                <small>Enter your M-Pesa phone number (format: 254XXXXXXXXX)</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" name="password" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="referralCode" class="form-label">Referral Code (Optional)</label>
+                                <input type="text" id="referralCode" name="referralCode" class="form-input" placeholder="Enter referral code">
+                                <small>Have a referral code? Enter it here to give your referrer a bonus!</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="terms" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="/terms" target="_blank">Terms of Service</a> and <a href="/privacy" target="_blank">Privacy Policy</a>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create Account</button>
+                        </form>
+
+                        <div class="form-footer">
+                            <p>Already have an account? <a href="/login">Sign in here</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="registration-step hidden" id="step2">
+                    <div class="payment-section">
+                        <div class="payment-header">
+                            <h2>Activate Your Account</h2>
+                            <p>Pay the one-time registration fee to start earning</p>
+                        </div>
+
+                        <div class="payment-info">
+                            <div class="payment-amount">Ksh 400</div>
+                            <p>One-time registration fee</p>
+                            <img src="/images/mpesa-logo.png" alt="M-Pesa" class="mpesa-logo">
+                        </div>
+
+                        <div class="payment-benefits">
+                            <h3>What you get:</h3>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Access to all earning tasks</li>
+                                <li><i class="fas fa-check"></i> Referral program participation</li>
+                                <li><i class="fas fa-check"></i> 24/7 customer support</li>
+                                <li><i class="fas fa-check"></i> Real-time earnings tracking</li>
+                                <li><i class="fas fa-check"></i> Direct M-Pesa withdrawals</li>
+                            </ul>
+                        </div>
+
+                        <form id="paymentForm" class="payment-form">
+                            <div class="form-group">
+                                <label for="paymentPhone" class="form-label">M-Pesa Phone Number</label>
+                                <input type="tel" id="paymentPhone" name="phone" class="form-input" placeholder="254712345678" required>
+                            </div>
+
+                            <input type="hidden" name="amount" value="400">
+
+                            <button type="submit" class="btn btn-primary pay-btn" data-amount="400">
+                                <i class="fas fa-mobile-alt"></i> Pay Ksh 400 via M-Pesa
+                            </button>
+                        </form>
+
+                        <div class="payment-security">
+                            <p><i class="fas fa-shield-alt"></i> Your payment is secure and processed through Safaricom M-Pesa</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Success -->
+                <div class="registration-step hidden" id="step3">
+                    <div class="success-section">
+                        <div class="success-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2>Welcome to PAPKASH!</h2>
+                        <p>Your account has been activated successfully. You can now start earning money!</p>
+                        
+                        <div class="success-actions">
+                            <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
+                            <a href="/tasks" class="btn btn-outline">View Available Tasks</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Registration Benefits Section -->
+    <section class="registration-benefits">
+        <div class="container">
+            <h2 class="text-center mb-3">Why Join PAPKASH?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Easy Money</h3>
+                    <p>Earn Ksh 20-500 per task with simple activities you already do on social media</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Flexible Time</h3>
+                    <p>Work at your own pace, anytime, anywhere. Perfect for students and part-time workers</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Referral Bonus</h3>
+                    <p>Earn Ksh 50 for every friend you refer who joins and activates their account</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>M-Pesa Payments</h3>
+                    <p>Get paid directly to your M-Pesa account. Minimum withdrawal is just Ksh 500</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="text-center mb-3">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Why do I need to pay Ksh 400?</h3>
+                    <p>The registration fee helps us maintain the platform, verify accounts, and ensure quality tasks. It's a one-time payment that activates your earning potential.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How much can I earn?</h3>
+                    <p>You can earn Ksh 20-500 per task depending on the complexity. Active members typically earn Ksh 5,000-15,000 per month.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How do I get paid?</h3>
+                    <p>Payments are made directly to your M-Pesa account. You can withdraw your earnings once you reach the minimum threshold of Ksh 500.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Is this legitimate?</h3>
+                    <p>Yes! PAPKASH is a registered company in Kenya. We have paid out over Ksh 50,000 to our members and continue to grow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>PAPKASH</h3>
+                    <p>Your trusted partner for earning money online through social media tasks and referrals.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/support">Help Center</a></li>
+                        <li><a href="/support#contact">Contact Us</a></li>
+                        <li>Email: support@papkash.com</li>
+                        <li>Phone: +254 700 000 000</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/refund">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 PAPKASH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        // Handle registration steps
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const step = urlParams.get('step');
+            
+            if (step === 'payment') {
+                showStep(2);
+            }
+        });
+
+        function showStep(stepNumber) {
+            // Hide all steps
+            document.querySelectorAll('.registration-step').forEach(step => {
+                step.classList.add('hidden');
+            });
+            
+            // Show current step
+            document.getElementById(`step${stepNumber}`).classList.remove('hidden');
+        }
+
+        // Handle successful registration
+        document.addEventListener('registrationSuccess', function() {
+            showStep(2);
+        });
+
+        // Handle successful payment
+        document.addEventListener('paymentSuccess', function() {
+            showStep(3);
+        });
+
+        // Password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (password !== confirmPassword) {
+                this.setCustomValidity('Passwords do not match');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        // Auto-fill payment phone from registration
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            const phone = document.getElementById('phone').value;
+            document.getElementById('paymentPhone').value = phone;
+        });
+    </script>
+</body>
+</html>
