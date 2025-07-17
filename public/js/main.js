@@ -78,9 +78,10 @@ async function fetchCurrentUser() {
             }
         });
         
-        if (response.ok) {
-            const data = await response.json();
-            currentUser = data.user;
+        const result = await response.json();
+        
+        if (response.ok && result.success) {
+            currentUser = result.user;
             updateAuthUI(true);
         } else {
             localStorage.removeItem('authToken');
@@ -89,6 +90,8 @@ async function fetchCurrentUser() {
         }
     } catch (error) {
         console.error('Error fetching user:', error);
+        localStorage.removeItem('authToken');
+        authToken = null;
         updateAuthUI(false);
     }
 }
@@ -239,8 +242,12 @@ async function handleAuthForm(form) {
     const isLogin = form.id === 'loginForm';
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
     
+    // Clear previous errors
+    form.querySelectorAll('.form-error').forEach(error => error.remove());
+    form.querySelectorAll('.form-input').forEach(input => input.classList.remove('error'));
+    
     try {
-        showLoading(form);
+        showLoading(form.querySelector('button[type="submit"]'));
         
         const response = await fetch(endpoint, {
             method: 'POST',
@@ -252,7 +259,7 @@ async function handleAuthForm(form) {
         
         const result = await response.json();
         
-        if (response.ok) {
+        if (result.success) {
             authToken = result.token;
             localStorage.setItem('authToken', authToken);
             currentUser = result.user;
@@ -260,19 +267,34 @@ async function handleAuthForm(form) {
             showAlert('success', result.message);
             
             if (isLogin) {
-                window.location.href = '/dashboard';
+                // Check if user is active
+                if (result.user.isActive) {
+                    window.location.href = '/dashboard';
+                } else {
+                    window.location.href = '/register?step=payment';
+                }
             } else {
                 // Redirect to payment for new users
                 window.location.href = '/register?step=payment';
             }
         } else {
+            // Handle validation errors
+            if (result.errors && Array.isArray(result.errors)) {
+                result.errors.forEach(error => {
+                    const field = form.querySelector(`[name="${error.param}"]`);
+                    if (field) {
+                        showError(field, error.msg);
+                    }
+                });
+            }
+            
             showAlert('error', result.message || 'An error occurred');
         }
     } catch (error) {
         console.error('Auth error:', error);
         showAlert('error', 'Network error. Please try again.');
     } finally {
-        hideLoading(form);
+        hideLoading(form.querySelector('button[type="submit"]'));
     }
 }
 

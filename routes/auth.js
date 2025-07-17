@@ -8,8 +8,8 @@ const router = express.Router();
 
 // Register user
 router.post('/register', [
-  body('name').trim().notEmpty().withMessage('Name is required'),
-  body('email').isEmail().withMessage('Please provide a valid email'),
+  body('name').trim().isLength({ min: 2 }).withMessage('Name must be at least 2 characters long'),
+  body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
   body('phone').matches(/^254[0-9]{9}$/).withMessage('Please provide a valid Kenyan phone number (254XXXXXXXXX)'),
   body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
   body('referralCode').optional().isLength({ min: 6, max: 6 }).withMessage('Invalid referral code')
@@ -17,7 +17,11 @@ router.post('/register', [
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ 
+        success: false,
+        message: 'Validation failed',
+        errors: errors.array() 
+      });
     }
 
     const { name, email, phone, password, referralCode } = req.body;
@@ -29,6 +33,7 @@ router.post('/register', [
 
     if (existingUser) {
       return res.status(400).json({ 
+        success: false,
         message: 'User with this email or phone number already exists' 
       });
     }
@@ -38,7 +43,10 @@ router.post('/register', [
     if (referralCode) {
       referrer = await User.findOne({ referralCode });
       if (!referrer) {
-        return res.status(400).json({ message: 'Invalid referral code' });
+        return res.status(400).json({ 
+          success: false,
+          message: 'Invalid referral code' 
+        });
       }
     }
 
@@ -62,12 +70,13 @@ router.post('/register', [
     // Generate JWT token
     const token = jwt.sign(
       { id: user._id },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || 'fallback_secret',
       { expiresIn: '30d' }
     );
 
     res.status(201).json({
-      message: 'User registered successfully',
+      success: true,
+      message: 'User registered successfully. Please complete payment to activate your account.',
       token,
       user: {
         id: user._id,
@@ -75,24 +84,42 @@ router.post('/register', [
         email: user.email,
         phone: user.phone,
         referralCode: user.referralCode,
-        paymentStatus: user.paymentStatus
+        paymentStatus: user.paymentStatus,
+        isActive: user.isActive
       }
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Registration error:', error);
+    
+    // Handle duplicate key errors
+    if (error.code === 11000) {
+      const field = Object.keys(error.keyValue)[0];
+      return res.status(400).json({ 
+        success: false,
+        message: `${field} already exists` 
+      });
+    }
+    
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error during registration. Please try again.' 
+    });
   }
 });
 
 // Login user
 router.post('/login', [
-  body('email').isEmail().withMessage('Please provide a valid email'),
+  body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
   body('password').notEmpty().withMessage('Password is required')
 ], async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ 
+        success: false,
+        message: 'Validation failed',
+        errors: errors.array() 
+      });
     }
 
     const { email, password } = req.body;
@@ -100,23 +127,30 @@ router.post('/login', [
     // Find user
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ 
+        success: false,
+        message: 'Invalid email or password' 
+      });
     }
 
     // Check password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
+      return res.status(400).json({ 
+        success: false,
+        message: 'Invalid email or password' 
+      });
     }
 
     // Generate JWT token
     const token = jwt.sign(
       { id: user._id },
-      process.env.JWT_SECRET,
+      process.env.JWT_SECRET || 'fallback_secret',
       { expiresIn: '30d' }
     );
 
     res.json({
+      success: true,
       message: 'Login successful',
       token,
       user: {
@@ -130,8 +164,11 @@ router.post('/login', [
       }
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Login error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error during login. Please try again.' 
+    });
   }
 });
 
@@ -140,14 +177,35 @@ router.get('/me', auth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id)
       .select('-password')
-      .populate('referrals', 'name email')
+      .populate('referrals', 'name email createdAt')
       .populate('referredBy', 'name email');
 
-    res.json({ user });
+    if (!user) {
+      return res.status(404).json({ 
+        success: false,
+        message: 'User not found' 
+      });
+    }
+
+    res.json({ 
+      success: true,
+      user 
+    });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Get user error:', error);
+    res.status(500).json({ 
+      success: false,
+      message: 'Server error' 
+    });
   }
+});
+
+// Logout user (client-side will handle token removal)
+router.post('/logout', auth, (req, res) => {
+  res.json({ 
+    success: true,
+    message: 'Logged out successfully' 
+  });
 });
 
 module.exports = router;

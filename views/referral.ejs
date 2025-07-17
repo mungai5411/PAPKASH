@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Referral Program - PAPKASH</title>
+    <meta name="description" content="Earn Ksh 50 for every friend you refer to PAPKASH. Share your referral code and boost your earnings.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="/" class="logo">PAPKASH</a>
+                <ul class="nav-links">
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/tasks">Tasks</a></li>
+                    <li><a href="/referral">Referrals</a></li>
+                    <li><a href="/support">Support</a></li>
+                    <li><a href="#" class="logout-btn">Logout</a></li>
+                </ul>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Referral Header -->
+            <div class="referral-header">
+                <h1>Referral Program</h1>
+                <p>Earn <strong>Ksh 50</strong> for every friend you refer to PAPKASH</p>
+            </div>
+
+            <!-- Referral Code Section -->
+            <div class="referral-code">
+                <h2>Your Referral Code</h2>
+                <div class="referral-code-display" id="referralCode">Loading...</div>
+                <button class="copy-btn" onclick="copyReferralCode()">
+                    <i class="fas fa-copy"></i> Copy Code
+                </button>
+                <p class="referral-info">
+                    Share this code with friends and earn <strong>Ksh 50</strong> for each successful referral!
+                </p>
+            </div>
+
+            <!-- Referral Statistics -->
+            <div class="referral-stats">
+                <h2>Your Referral Statistics</h2>
+                <!-- Stats will be populated by JavaScript -->
+            </div>
+
+            <!-- How it Works -->
+            <section class="how-it-works">
+                <h2>How the Referral Program Works</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Share Your Code</h3>
+                            <p>Share your unique referral code with friends via WhatsApp, SMS, or social media.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Friend Registers</h3>
+                            <p>Your friend uses your code during registration and pays the Ksh 400 activation fee.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>You Earn Money</h3>
+                            <p>Once your friend's account is activated, you automatically earn Ksh 50!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Referral List -->
+            <section class="referrals-section">
+                <h2>Your Referrals</h2>
+                <div class="referrals-list">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Loading referrals...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sharing Tools -->
+            <section class="sharing-tools">
+                <h2>Share Your Code</h2>
+                <div class="sharing-buttons">
+                    <button class="share-btn whatsapp" onclick="shareOnWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+                    </button>
+                    <button class="share-btn facebook" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook"></i> Share on Facebook
+                    </button>
+                    <button class="share-btn twitter" onclick="shareOnTwitter()">
+                        <i class="fab fa-twitter"></i> Share on Twitter
+                    </button>
+                    <button class="share-btn sms" onclick="shareViaSMS()">
+                        <i class="fas fa-sms"></i> Share via SMS
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>PAPKASH</h3>
+                    <p>Your trusted partner for earning money online through social media tasks and referrals.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                        <li><a href="/tasks">Tasks</a></li>
+                        <li><a href="/referral">Referrals</a></li>
+                        <li><a href="/support">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="/support">Help Center</a></li>
+                        <li>Email: support@papkash.com</li>
+                        <li>Phone: +254 700 000 000</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/refund">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 PAPKASH. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        let userReferralCode = '';
+
+        function copyReferralCode() {
+            const code = document.getElementById('referralCode').textContent;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code).then(() => {
+                    showAlert('success', 'Referral code copied to clipboard!');
+                    const copyBtn = document.querySelector('.copy-btn');
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Code';
+                    }, 2000);
+                });
+            }
+        }
+
+        function shareOnWhatsApp() {
+            const message = `Join PAPKASH and start earning money by completing simple tasks! Use my referral code: ${userReferralCode} to get started. Register at: ${window.location.origin}/register`;
+            const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const message = `Join PAPKASH and start earning money! Use my referral code: ${userReferralCode}`;
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin)}&quote=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareOnTwitter() {
+            const message = `Join PAPKASH and start earning money by completing simple tasks! Use my referral code: ${userReferralCode} 💰 ${window.location.origin}/register`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function shareViaSMS() {
+            const message = `Join PAPKASH and start earning money! Use my referral code: ${userReferralCode} Register at: ${window.location.origin}/register`;
+            const url = `sms:?body=${encodeURIComponent(message)}`;
+            window.open(url);
+        }
+
+        // Update referral code when user data is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // This will be called when user data is loaded
+            const updateReferralCode = (code) => {
+                userReferralCode = code;
+                document.getElementById('referralCode').textContent = code;
+            };
+            
+            window.updateReferralCode = updateReferralCode;
+        });
+    </script>
+</body>
+</html>
